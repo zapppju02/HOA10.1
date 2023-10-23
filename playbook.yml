@@ -1,0 +1,33 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+
+  - name: epel-release download
+    yum:
+      name:
+        - epel-release
+    when: ansible_distribution == "CentOS"
+
+  - name: Remote CentOS server Update and Upgrade
+    yum:
+      update_cache: yes
+      update_only: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: Ubuntu server Update and Upgrade
+    apt:
+      update_cache: yes
+      upgrade: dist
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: ubuntu_elastic_search
+  become: true
+  roles:
+    - role: ubuntu_elastic_search
+
+- hosts: centos_elastic_search
+  become: true
+  roles:
+    - role: centos_elastic_search

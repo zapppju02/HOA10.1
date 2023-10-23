@@ -1,0 +1,5 @@
+[ubuntu_elastic_search]
+192.168.56.102
+
+[centos_elastic_search]
+jpaz@192.168.56.104

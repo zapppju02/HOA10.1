@@ -1,0 +1,51 @@
+- name: Download the Elastic Search in CentOS
+  get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.2-x86_64.rpm
+    dest: /tmp/elasticsearch-7.9.2-x86_64.rpm
+  when: ansible_distribution == "CentOS"
+
+- name: Install Elastic Search in CentOS
+  yum:
+    name: /tmp/elasticsearch-7.9.2-x86_64.rpm
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Start Elastic Search
+  service:
+    name: elasticsearch
+    state: started 
+
+- name: Download the Kibana in CentOS
+  get_url:
+    url: https://artifacts.elastic.co/downloads/kibana/kibana-8.4.3-x86_64.rpm
+    dest: /tmp/kibana-8.4.3-x86_64.rpm
+  when: ansible_distribution == "CentOS"
+
+- name: Install Kibana in CentOS
+  yum: 
+    name: /tmp/kibana-8.4.3-x86_64.rpm
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"
+
+- name: Start Kibana
+  service: 
+    name: kibana
+    state: restarted
+
+- name: Download Logstash in CentOS
+  get_url:
+    url: https://artifacts.elastic.co/downloads/logstash/logstash-7.8.0.rpm
+    dest: /tmp/logstash-7.8.0.rpm
+  when: ansible_distribution == "CentOS"
+
+- name: Install Logstash in CentOS
+  yum:
+    name: /tmp/logstash-7.8.0.rpm
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Start Logstash
+  service:
+    name: logstash
+    state: restarted
